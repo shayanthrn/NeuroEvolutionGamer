@@ -4,18 +4,19 @@ import numpy as np
 class NeuralNetwork():
 
     def __init__(self, layer_sizes):
+        self.layer1_weights = np.random.normal(size=(layer_sizes[1],layer_sizes[0])) #weights of layer 1 with normal initialization
+        self.layer2_weights = np.random.normal(size=(layer_sizes[2],layer_sizes[1])) #weights of layer 2 with normal initialization
+        self.biases1 = np.zeros((layer_sizes[1],1))
+        self.biases2 = np.zeros((layer_sizes[2],1))
 
-        # TODO
-        # layer_sizes example: [4, 10, 2]
-        pass
+    def activation(self, x):  #sigmoid as activation function
+        return 1 / (1 + np.exp(-x))
 
-    def activation(self, x):
-        
-        # TODO
-        return x
+    def forward(self, input_neurons):  #feedforwarding
+        hiddenlayer_neurons = self.activation(self.layer1_weights@input_neurons+self.biases1)
+        output_neurons = self.activation(self.layer2_weights@hiddenlayer_neurons+self.biases2)
+        return output_neurons
 
-    def forward(self, x):
-        
-        # TODO
-        # x example: np.array([[0.1], [0.2], [0.3]])
-        pass
+
+nn = NeuralNetwork([5,2,2])
+print(nn.forward(np.array([[1],[2],[3],[4],[5]])))

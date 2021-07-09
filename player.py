@@ -101,33 +101,42 @@ class Player():
     def think(self, mode, box_lists, agent_position, velocity):
 
         # TODO implement for gravity and thrust
-
-        max_velocity=20
+        max_velocity=15
         direction = -1
+        input1=1
+        if(len(box_lists)>0):   #diff between x of first box and agent
+            input1=(box_lists[0].x - agent_position[0])/CONFIG['WIDTH']
+        input2=1
+        if(len(box_lists)>1):   #diff between x of second box and agent
+            input2=(box_lists[1].x - agent_position[0])/CONFIG['WIDTH']
+        input3=0
+        if(len(box_lists)>0):   #diff between gap of first box and agent
+            input3=(agent_position[1] - box_lists[0].gap_mid)/CONFIG['HEIGHT']
+        input4=0
+        if(len(box_lists)>1):   #diff between gap of second box and agent
+            input4=(agent_position[1] - box_lists[1].gap_mid)/CONFIG['HEIGHT']
+        input5=velocity/max_velocity  #normalized velocity
+        input_neurons=np.array([[input1],[input2],[input3],[input4],[input5]])
+        result=self.nn.forward(input_neurons)[0][0]
         if(mode=="helicopter"):
-            input1=1
-            if(len(box_lists)>0):   #diff between x of first box and agent
-                input1=(box_lists[0].x - agent_position[0])/CONFIG['WIDTH']
-            input2=1
-            if(len(box_lists)>1):   #diff between x of second box and agent
-                input2=(box_lists[1].x - agent_position[0])/CONFIG['WIDTH']
-            input3=0
-            if(len(box_lists)>0):   #diff between gap of first box and agent
-                input3=(agent_position[1] - box_lists[0].gap_mid)/CONFIG['HEIGHT']
-            input4=0
-            if(len(box_lists)>1):   #diff between gap of second box and agent
-                input4=(agent_position[1] - box_lists[1].gap_mid)/CONFIG['HEIGHT']
-            input5=velocity/max_velocity  #normalized velocity
-            input_neurons=np.array([[input1],[input2],[input3],[input4],[input5]])
-            result=self.nn.forward(input_neurons)[0][0]
             if(result>0.5):
                 direction=1
             else:
                 direction=-1
             return direction
         elif(mode=="gravity"):
+            if(result>0.5):
+                direction=1
+            else:
+                direction=-1
             return direction
         elif(mode=="thrust"):
+            if(result>0.7):
+                direction=1
+            elif(0.3<=result<=0.7):
+                direction=0
+            else:
+                direction=-1
             return direction
         else:
             return direction

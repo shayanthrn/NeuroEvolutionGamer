@@ -90,24 +90,49 @@ class Player():
 
         layer_sizes = None
         if mode == 'gravity':
-            layer_sizes = [6, 20, 1]
+            layer_sizes = [5, 20, 1]
         elif mode == 'helicopter':
-            layer_sizes = [6, 20, 1]
+            layer_sizes = [5, 20, 1]
         elif mode == 'thrust':
-            layer_sizes = [6, 20, 1]
+            layer_sizes = [5, 20, 1]
         return layer_sizes
 
     
     def think(self, mode, box_lists, agent_position, velocity):
-
+        max_velocity=20
+        direction = -1
         # TODO
         # mode example: 'helicopter'
         # box_lists: an array of `BoxList` objects
         # agent_position example: [600, 250]
         # velocity example: 7
-
-        direction = -1
-        return direction
+        if(mode=="helicopter"):
+            input1=1
+            if(len(box_lists)>0):   #diff between x of first box and agent
+                input1=(box_lists[0].x - agent_position[0])/CONFIG['WIDTH']
+            input2=1
+            if(len(box_lists)>1):   #diff between x of second box and agent
+                input2=(box_lists[1].x - agent_position[0])/CONFIG['WIDTH']
+            input3=0
+            if(len(box_lists)>0):   #diff between gap of first box and agent
+                input3=(agent_position[1] - box_lists[0].gap_mid)/CONFIG['HEIGHT']
+            input4=0
+            if(len(box_lists)>1):   #diff between gap of second box and agent
+                input4=(agent_position[1] - box_lists[1].gap_mid)/CONFIG['HEIGHT']
+            input5=velocity/max_velocity  #normalized velocity
+            input_neurons=np.array([[input1],[input2],[input3],[input4],[input5]])
+            result=self.nn.forward(input_neurons)[0][0]
+            if(result>0.5):
+                direction=1
+            else:
+                direction=-1
+            return direction
+        elif(mode=="gravity"):
+            return direction
+        elif(mode=="thrust"):
+            return direction
+        else:
+            return direction
 
     def collision_detection(self, mode, box_lists, camera):
         if mode == 'helicopter':

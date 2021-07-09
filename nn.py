@@ -16,7 +16,3 @@ class NeuralNetwork():
         hiddenlayer_neurons = self.activation(self.layer1_weights@input_neurons+self.biases1)
         output_neurons = self.activation(self.layer2_weights@hiddenlayer_neurons+self.biases2)
         return output_neurons
-
-
-nn = NeuralNetwork([5,2,2])
-print(nn.forward(np.array([[1],[2],[3],[4],[5]])))

@@ -1,6 +1,7 @@
 from player import Player
 import numpy as np
 from config import CONFIG
+import random
 
 
 class Evolution():
@@ -38,13 +39,15 @@ class Evolution():
             new_players = prev_players
             return new_players
 
-    def next_population_selection(self, players, num_players):
+    def next_population_selection(self, players, num_players,gen_num):
 
-        # TODO
-        # num_players example: 100
-        # players: an array of `Player` objects
-
-        # TODO (additional): a selection method other than `top-k`
         # TODO (additional): plotting
 
-        return players[: num_players]
+        #using Q-tournoment algorithm for selection
+        result = []
+        Q = gen_num
+        for _ in range(num_players):
+            random.sample(players,Q)
+            result.append(max(random.sample(players,Q), key=lambda item: item.fitness))
+
+        return result

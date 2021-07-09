@@ -149,7 +149,7 @@ class Game():
                 evolution.calculate_fitness(prev_players, prev_delta_xs)
 
                 # selection
-                prev_players = evolution.next_population_selection(prev_players + players, CONFIG['num_players'])
+                prev_players = evolution.next_population_selection(prev_players + players, CONFIG['num_players'],gen_num)
                 for p in prev_players:
                     p.reset_values()
                 prev_alive = [True for _ in range(CONFIG['num_players'])]

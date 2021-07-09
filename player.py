@@ -99,13 +99,11 @@ class Player():
 
     
     def think(self, mode, box_lists, agent_position, velocity):
+
+        # TODO implement for gravity and thrust
+
         max_velocity=20
         direction = -1
-        # TODO
-        # mode example: 'helicopter'
-        # box_lists: an array of `BoxList` objects
-        # agent_position example: [600, 250]
-        # velocity example: 7
         if(mode=="helicopter"):
             input1=1
             if(len(box_lists)>0):   #diff between x of first box and agent

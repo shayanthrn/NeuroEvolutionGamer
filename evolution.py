@@ -16,7 +16,7 @@ class Evolution():
 
     def mutate(self, child):
         rand= random.uniform(0, 1)
-        if(rand<0.2):
+        if(rand<0.25):
             child.nn.layer1_weights+= np.random.normal(size=child.nn.layer1_weights.shape)
             child.nn.layer2_weights+= np.random.normal(size=child.nn.layer2_weights.shape)
             child.nn.biases1 += np.random.normal(size=child.nn.biases1.shape)

@@ -117,24 +117,22 @@ class Player():
             input4=(agent_position[1] - box_lists[1].gap_mid)/CONFIG['HEIGHT']
         input5=velocity/max_velocity  #normalized velocity
         input_neurons=np.array([[input1],[input2],[input3],[input4],[input5]])
-        result=self.nn.forward(input_neurons)[0][0]
+        result=self.nn.forward(input_neurons)
         if(mode=="helicopter"):
-            if(result>0.5):
+            if(result[0][0]>0.5):
                 direction=1
             else:
                 direction=-1
             return direction
         elif(mode=="gravity"):
-            if(result>0.5):
+            if(result[0][0]>0.5):
                 direction=1
             else:
                 direction=-1
             return direction
         elif(mode=="thrust"):
-            if(result>0.7):
+            if(result[0][0]>0.5):
                 direction=1
-            elif(0.3<=result<=0.7):
-                direction=0
             else:
                 direction=-1
             return direction

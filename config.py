@@ -5,7 +5,7 @@ CONFIG = {
     'HEIGHT': 720,         # height of the window
     'fps': 50,             # frame/second
     'camera_speed': 8,     # speed of camera
-    'box_gap': 10,          # relative gap between box lists
+    'box_gap': 9,          # relative gap between box lists
 
     # Parameters
     'seed': 0,             # map of the game

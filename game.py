@@ -49,7 +49,8 @@ class Game():
         self.camera = 0
 
     def run(self, mode, checkpoint_path):  # a function to run the game in evolutionary mode
-
+        file = open('learning_curve.txt','w')
+        file.close()
         clock = pygame.time.Clock()
         evolution = Evolution(mode)  # evolutionary algorithms are implemented in this class
 

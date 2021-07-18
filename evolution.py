@@ -48,9 +48,21 @@ class Evolution():
             return result
 
     def next_population_selection(self, players, num_players,gen_num):
-
-        # TODO (additional): plotting
-
+        fitness_sum = 0
+        fitness_min = players[0].fitness
+        fitness_max = players[0].fitness
+        #Learning curve
+        for player in players:
+            fitness_sum += player.fitness
+            if(player.fitness<fitness_min):
+                fitness_min = player.fitness
+            if(player.fitness> fitness_max):
+                fitness_max = player.fitness
+        fitness_avg = fitness_sum/len(players)
+        file = open('learning_curve.txt','a')
+        file.writelines(str(fitness_avg)+" "+str(fitness_max)+" "+str(fitness_min)+"\n")
+        file.close()
+        
         #using Q-tournoment algorithm for selection and Mu+landa
         result = []
         Q = gen_num

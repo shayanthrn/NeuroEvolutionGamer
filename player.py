@@ -131,10 +131,12 @@ class Player():
                 direction=-1
             return direction
         elif(mode=="thrust"):
-            if(result[0][0]>0.5):
+            if(result[0][0]>0.66):
                 direction=1
-            else:
+            elif(result[0][0]<0.33):
                 direction=-1
+            else:
+                direction=0
             return direction
         else:
             return direction

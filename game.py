@@ -125,7 +125,7 @@ class Game():
             for i, p in enumerate(players):
                 if delta_xs[i] == 0:
                     collided = p.move(box_lists[:4], self.camera)
-                    if collided or self.camera > high_score + 10000:
+                    if collided or self.camera > high_score + 20000:
                         delta_xs[i] = self.camera
                         num_alive -= 1
 
@@ -133,7 +133,7 @@ class Game():
             for i, p in enumerate(prev_players):
                 if prev_alive[i]:
                     collided = p.move(box_lists[:4], self.camera)
-                    if collided or self.camera > high_score + 10000:
+                    if collided or self.camera > high_score + 20000:
                         prev_delta_xs[i] = self.camera
                         prev_alive[i] = False
                         num_alive -= 1
